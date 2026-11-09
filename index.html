@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Einbürgerungstest · Leben in Deutschland</title>
+<meta name="description" content="Übungsseite für den Einbürgerungstest „Leben in Deutschland“: alle 460 Fragen, Übersetzungen in 7 Sprachen, Fehlerliste und Statistik.">
+<meta name="theme-color" content="#141414">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script>try{const t=localStorage.getItem("lid-theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<style>
+:root{
+  --bg:#F2F1EC; --pane:#FFFFFF; --ink:#141414; --muted:#5A5A55; --line:#D3D2CA;
+  --de:#141414; --deTint:#FBF5DA; --en:#7A5E00; --enTint:#F5F5F2; --enLabel:#B00000;
+  --ok:#1E7A46; --okBg:#E3F2E8; --bad:#DD0000; --badBg:#FDE7E7; --gold:#FFCE00; --vocab:#E8B800;
+  --priBg:#141414; --priInk:#FFFFFF; --badge:#DD0000; --keyInk:#FFFFFF;
+  --barTrack:#E6E5DE; --barFill:#141414; --stripeH:9px; --flagBlack:#000000;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E0E0E; --pane:#141414; --ink:#F1F1F1; --muted:#A6A6A6; --line:#2E2E2E;
+  --de:#FFCE00; --deTint:#17150D; --en:#E8C547; --enTint:#121212; --enLabel:#FF7A70;
+  --ok:#4CC38A; --okBg:#11301F; --bad:#FF5A4F; --badBg:#3A1514; --gold:#FFCE00; --vocab:#FFCE00;
+  --priBg:#FFCE00; --priInk:#0E0E0E; --badge:#E53935; --keyInk:#0E0E0E;
+  --barTrack:#262626; --barFill:#FFCE00; --stripeH:0px; --flagBlack:#5A5A5A;}}
+:root[data-theme="dark"]{
+  --bg:#0E0E0E; --pane:#141414; --ink:#F1F1F1; --muted:#A6A6A6; --line:#2E2E2E;
+  --de:#FFCE00; --deTint:#17150D; --en:#E8C547; --enTint:#121212; --enLabel:#FF7A70;
+  --ok:#4CC38A; --okBg:#11301F; --bad:#FF5A4F; --badBg:#3A1514; --gold:#FFCE00; --vocab:#FFCE00;
+  --priBg:#FFCE00; --priInk:#0E0E0E; --badge:#E53935; --keyInk:#0E0E0E;
+  --barTrack:#262626; --barFill:#FFCE00; --stripeH:0px; --flagBlack:#5A5A5A;}
+*,*::before,*::after{box-sizing:inherit}
+[hidden]{display:none!important}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+button,select,input{font:inherit;color:inherit}
+header{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;padding:.8rem 1.2rem;border-bottom:1px solid var(--line);background:var(--pane);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.brand{font-family:var(--serif);font-weight:600;font-size:1.15rem;margin-right:auto;display:flex;align-items:center;gap:.55rem}
+.flag{display:inline-flex;flex-direction:column;width:6px;height:20px;border-radius:1px;overflow:hidden}
+.flag i{flex:1}.flag i:nth-child(1){background:var(--flagBlack)}.flag i:nth-child(2){background:#DD0000}.flag i:nth-child(3){background:#FFCE00}
+.ctl{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+select,input[type=number]{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:.35rem .5rem;max-width:15rem}
+input[type=number]{width:5.5rem}
+.stat{font-size:.88rem;color:var(--muted);white-space:nowrap}
+.stat b{color:var(--ink);font-weight:600}
+.bar{height:4px;background:var(--barTrack)}.bar>div{height:100%;background:var(--barFill);width:0;transition:width .3s}
+main{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 140px)}
+.pane{padding:1.6rem clamp(1rem,3vw,2.6rem) 2rem;display:flex;flex-direction:column;gap:1rem;min-width:0}
+.pane.de{background:var(--deTint);border-right:1px solid var(--line)}
+.pane.en{background:var(--enTint)}
+.lang{font-size:.85rem;font-weight:600;color:var(--muted);display:flex;justify-content:space-between;gap:.5rem}
+.de .lang .code{color:var(--de)}.en .lang .code{color:var(--enLabel)}
+.q{font-family:var(--serif);font-size:clamp(1.25rem,2.1vw,1.6rem);line-height:1.38;margin:0;max-width:34em}
+.img{font-size:.9rem}
+.img a{color:var(--en)}
+.opts{display:flex;flex-direction:column;gap:.55rem;margin:0;padding:0;list-style:none}
+.opt{display:flex;gap:.8rem;align-items:flex-start;text-align:start;width:100%;background:var(--pane);border:1px solid var(--line);border-radius:8px;padding:.7rem .85rem;cursor:pointer;transition:border-color .15s,background .15s}
+.opt:hover:not([disabled]){border-color:var(--ink)}
+.opt:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.opt .k{flex:none;width:1.6rem;height:1.6rem;border-radius:50%;display:grid;place-items:center;font-size:.8rem;font-weight:600;border:1px solid var(--line)}
+.opt[disabled]{cursor:default}
+.opt.ok{background:var(--okBg);border-color:var(--ok)}.opt.ok .k{background:var(--ok);border-color:var(--ok);color:var(--keyInk)}
+.opt.bad{background:var(--badBg);border-color:var(--bad)}.opt.bad .k{background:var(--bad);border-color:var(--bad);color:var(--keyInk)}
+.opt.dim{opacity:.55}
+.ctx{border-inline-start:3px solid var(--gold);padding-block:.2rem;padding-inline:.9rem 0;font-size:.95rem;color:var(--ink);max-width:40em;display:none}
+.ctx.show{display:block;animation:in .25s ease-out}
+.ctx h3{margin:0 0 .25rem;font-size:.85rem;color:var(--muted);font-weight:600}
+.ctx p{margin:0}
+.verdict{font-weight:600;font-size:.95rem;display:none}
+.verdict.show{display:block}.verdict.y{color:var(--ok)}.verdict.n{color:var(--bad)}
+.note{font-size:.8rem;color:var(--muted)}
+footer{display:flex;gap:.6rem;justify-content:center;align-items:center;flex-wrap:wrap;padding:.9rem 1rem;border-top:1px solid var(--line);background:var(--pane);position:sticky;bottom:0;padding-bottom:calc(.9rem + env(safe-area-inset-bottom,0px))}
+.btn{border:1px solid var(--line);background:var(--bg);border-radius:6px;padding:.45rem .9rem;cursor:pointer}
+.btn:hover{border-color:var(--ink)}
+.btn.primary{background:var(--priBg);color:var(--priInk);border-color:var(--priBg)}
+.btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.btn.on{background:var(--gold);color:#141414;border-color:var(--gold)}
+.vocab{grid-column:1/-1;background:var(--pane);border-top:1px solid var(--line);padding:1.2rem clamp(1rem,3vw,2.6rem) 1.6rem}
+.vocab h3{margin:0 0 .6rem;font-family:var(--serif);font-weight:600;font-size:1.05rem}
+.vocab h3 small{font-family:var(--sans);font-weight:400;color:var(--muted);font-size:.8rem;margin-left:.5rem}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:.4rem 1.6rem;margin:0;padding:0;list-style:none}
+.vgrid li{display:flex;justify-content:space-between;gap:1rem;border-bottom:1px dotted var(--line);padding:.3rem 0;font-size:.95rem}
+.vgrid .w{font-weight:500}.vgrid .t{color:var(--en);text-align:right}
+.v{text-decoration:underline;text-decoration-color:var(--vocab);text-decoration-thickness:2px;text-underline-offset:3px;cursor:help}
+.qimg{max-width:100%;max-height:340px;border-radius:6px;border:1px solid var(--line);background:#fff;display:block}
+.tabs{display:flex;gap:.25rem;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:3px}
+.tab{border:0;background:transparent;border-radius:6px;padding:.3rem .8rem;cursor:pointer;font-weight:500}
+.tab.on{background:var(--priBg);color:var(--priInk)}
+.badge{display:inline-block;min-width:1.4em;padding:0 .35em;border-radius:99px;background:var(--badge);color:#fff;font-size:.75rem;text-align:center;margin-left:.2rem}
+#fails{padding:1.2rem clamp(1rem,3vw,2.6rem) 3rem;max-width:1400px;margin:0 auto}
+.ftool{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.ftool h2{font-family:var(--serif);font-weight:600;font-size:1.3rem;margin:0}
+.ftool h2 small{font-family:var(--sans);font-size:.85rem;font-weight:400;color:var(--muted);margin-left:.4rem}
+.fcard{background:var(--pane);border:1px solid var(--line);border-left:4px solid var(--bad);border-radius:8px;margin-bottom:1rem;overflow:hidden}
+.fcard.fixed{border-left-color:var(--ok)}
+.fhead{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem;padding:.6rem 1rem;border-bottom:1px solid var(--line);font-size:.85rem;color:var(--muted)}
+.fhead b{color:var(--ink)}
+.fbody{display:grid;grid-template-columns:1fr 1fr}
+.fcol{padding:.9rem 1rem;display:flex;flex-direction:column;gap:.5rem;min-width:0}
+.fcol.de{background:var(--deTint);border-right:1px solid var(--line)}.fcol.en{background:var(--enTint)}
+.fq{font-family:var(--serif);font-size:1.08rem;margin:0}
+.fa{font-size:.93rem;padding:.35rem .6rem;border-radius:6px}
+.fa.y{background:var(--okBg);color:var(--ok)}.fa.n{background:var(--badBg);color:var(--bad)}
+.fctx{font-size:.88rem;color:var(--muted);margin:0}
+.fv{display:flex;flex-wrap:wrap;gap:.35rem;padding:.6rem 1rem;border-top:1px solid var(--line)}
+.chip{font-size:.8rem;border:1px solid var(--line);border-radius:99px;padding:.1rem .55rem;background:var(--bg)}
+.chip i{font-style:normal;color:var(--en)}
+.fact{display:flex;gap:.5rem}
+.fact .btn{padding:.25rem .7rem;font-size:.85rem}
+.fimg{max-width:220px;max-height:160px;border-radius:4px;border:1px solid var(--line);background:#fff}
+.none{text-align:center;color:var(--muted);padding:3rem 1rem}
+@media (max-width:760px){.fbody{grid-template-columns:1fr}.fcol.de{border-right:0;border-bottom:1px solid var(--line)}}
+.empty{grid-column:1/-1;padding:3rem;text-align:center;color:var(--muted)}
+.keys{font-size:.78rem;color:var(--muted)}
+
+/* ---- Statistik-Bericht ---- */
+.rep{display:grid;gap:1rem;margin-bottom:1.8rem}
+.rcard{background:var(--pane);border:1px solid var(--line);border-radius:8px;padding:1rem 1.2rem;min-width:0}
+.rcard h3{margin:0;font-family:var(--serif);font-weight:600;font-size:1.12rem}
+.rcard h3 small,.rsub{font-family:var(--sans);font-weight:400;color:var(--muted);font-size:.82rem}
+.rcard h3 small{margin-left:.4rem}
+.rsub{margin:.15rem 0 .7rem}
+.rgrid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media (max-width:900px){.rgrid{grid-template-columns:1fr}}
+.kpis{display:flex;flex-wrap:wrap;gap:.6rem 2rem;margin:.4rem 0 .9rem}
+.kpi b{display:block;font-family:var(--serif);font-size:1.9rem;line-height:1.1;font-weight:600;font-variant-numeric:tabular-nums}
+.kpi span{font-size:.8rem;color:var(--muted);display:flex;align-items:center;gap:.35rem}
+.sw{display:inline-block;width:.65rem;height:.65rem;border-radius:2px;flex:none}
+.sw.o{background:var(--ok)}.sw.x{background:var(--bad)}.sw.u{background:var(--line)}
+.sbar{display:flex;gap:2px;height:24px;border-radius:4px;overflow:hidden}
+.sbar i{display:block;height:100%;min-width:0;cursor:help}
+.sbar .o{background:var(--ok)}.sbar .x{background:var(--bad)}.sbar .u{background:var(--line)}
+.pass{margin:.7rem 0 0;font-size:.9rem}
+.pass.y{color:var(--ok)}.pass.n{color:var(--bad)}
+.crow{display:grid;grid-template-columns:minmax(8rem,13rem) 1fr 7.5rem;gap:.8rem;align-items:center;padding:.4rem 0;border-bottom:1px dotted var(--line);font-size:.9rem}
+.crow:last-child{border-bottom:0}
+.crow .sbar{height:12px;border-radius:3px}
+.crow .r{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums;font-size:.85rem}
+.crow .r b{color:var(--ink)}
+@media (max-width:560px){.crow{grid-template-columns:1fr 6.5rem}.crow .sbar{grid-column:1/-1;grid-row:2}}
+.legend{display:flex;flex-wrap:wrap;gap:.4rem 1rem;font-size:.8rem;color:var(--muted);margin-top:.6rem}
+.legend span{display:flex;align-items:center;gap:.35rem}
+.recs{display:flex;flex-direction:column;gap:.5rem}
+.recitem{display:flex;justify-content:space-between;align-items:center;gap:1rem;border:1px solid var(--line);border-left:4px solid var(--bad);border-radius:6px;padding:.5rem .8rem;background:var(--bg)}
+.recitem p{margin:0;font-size:.85rem;color:var(--muted)}
+.recitem b{color:var(--ink);font-size:.95rem}
+.recitem .btn{padding:.25rem .8rem;font-size:.85rem;flex:none}
+.vtoggle{display:flex;gap:.25rem;margin-bottom:.7rem}
+.vtoggle .btn{padding:.2rem .7rem;font-size:.82rem}
+.vtop{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:.1rem 1.4rem;margin:0;padding:0;list-style:none}
+.vtop li{display:grid;grid-template-columns:1fr auto;gap:.1rem .8rem;border-bottom:1px dotted var(--line);padding:.3rem 0;font-size:.92rem}
+.vtop .w{font-weight:500}.vtop .t{color:var(--en);grid-column:1}
+.vtop .c{grid-row:1/3;grid-column:2;align-self:center;font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums;text-align:right}
+.ov{position:fixed;inset:0;background:rgba(10,14,18,.55);z-index:30;display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:max(1.5rem,env(safe-area-inset-top)) 1rem 2rem}
+.ovbox{background:var(--bg);border-radius:10px;max-width:1100px;width:100%;padding:1.2rem clamp(1rem,3vw,2rem);box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.ovhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:.8rem;margin-bottom:1rem}
+.ovhead h2{margin:0;font-family:var(--serif);font-weight:600;font-size:1.35rem}
+.ovhead .ctl .btn{white-space:nowrap}
+#fLang{font-weight:600;color:var(--enLabel);padding:.15rem .4rem;font-size:.85rem}
+.srcnote{color:var(--muted)}
+[dir=rtl] .q,[dir=rtl] .fq{font-family:var(--sans)}
+body::before{content:"";display:block;height:var(--stripeH);background:linear-gradient(#000 0 33.34%,#DD0000 33.34% 66.67%,#FFCE00 66.67%)}
+@keyframes in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:760px){main{grid-template-columns:1fr}.pane.de{border-right:0;border-bottom:1px solid var(--line)}.keys{display:none}header{position:static}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><span class="flag"><i></i><i></i><i></i></span>Leben in Deutschland</div>
+  <nav class="tabs" role="tablist">
+    <button class="tab on" id="tQuiz" role="tab" aria-selected="true">Üben</button>
+    <button class="tab" id="tFail" role="tab" aria-selected="false">Fehler &amp; Statistik <span class="badge" id="failN">0</span></button>
+  </nav>
+  <div class="ctl">
+    <select id="fState" aria-label="Fragenkatalog">
+      <option value="ALL+BE">Allgemein + Berlin (310)</option>
+      <option value="ALL">Nur Allgemein (300)</option>
+      <option value="*">Alle 460 Fragen</option>
+    </select>
+    <select id="fCat" aria-label="Kategorie"><option value="*">Alle Kategorien</option></select>
+    <select id="fMode" aria-label="Modus">
+      <option value="all">Alle</option>
+      <option value="open">Unbeantwortet</option>
+      <option value="wrong">Nur falsche</option>
+      <option value="missed">Fehlerliste</option>
+    </select>
+    <button class="btn" id="shuf" aria-pressed="false">Zufall</button>
+    <button class="btn" id="theme" title="Design wechseln · switch theme">◐ Auto</button>
+  </div>
+  <div class="stat"><b id="pos">–</b> · Richtig <b id="okN">0</b> / <b id="ansN">0</b></div>
+</header>
+<div class="bar"><div id="prog"></div></div>
+
+<main id="main">
+  <section class="pane de" lang="de">
+    <div class="lang"><span class="code">Deutsch</span><span id="metaDe"></span></div>
+    <h2 class="q" id="qDe"></h2>
+    <div class="img" id="imgDe"></div>
+    <ul class="opts" id="oDe"></ul>
+    <div class="verdict" id="vDe"></div>
+    <div class="ctx" id="cDe"><h3>Kontext</h3><p></p></div>
+  </section>
+  <section class="pane en" id="paneEn" lang="en">
+    <div class="lang"><span class="code"><select id="fLang" aria-label="Übersetzung · translation"></select></span><span id="metaEn"></span></div>
+    <h2 class="q" id="qEn"></h2>
+    <div class="img" id="imgEn"></div>
+    <ul class="opts" id="oEn"></ul>
+    <div class="verdict" id="vEn"></div>
+    <div class="ctx" id="cEn"><h3 id="cEnH">Context</h3><p></p></div>
+  </section>
+  <section class="vocab" id="vocab">
+    <h3>Wortschatz B1 <small>Vocabulary · German → English · unterstrichene Wörter</small></h3>
+    <ul class="vgrid" id="vlist"></ul>
+  </section>
+</main>
+
+<section id="fails" hidden>
+  <div class="ftool">
+    <h2>Falsch beantwortete Fragen <small>Wrongly answered questions</small></h2>
+    <div class="ctl">
+      <select id="fSort" aria-label="Sortierung"><option value="cnt">Am häufigsten falsch</option><option value="num">Nach Nummer</option></select>
+      <button class="btn primary" id="practiceFails">Alle üben</button>
+      <button class="btn" id="clearFails">Liste leeren</button>
+    </div>
+  </div>
+  <div id="frep"></div>
+  <div id="flist"></div>
+</section>
+
+<div class="ov" id="ov" hidden role="dialog" aria-modal="true" aria-labelledby="ovT">
+  <div class="ovbox">
+    <div class="ovhead">
+      <h2 id="ovT">Runde beendet – dein Bericht <small class="rsub">Round finished – your report</small></h2>
+      <div class="ctl">
+        <button class="btn" id="ovFails">Zur Fehlerliste</button>
+        <button class="btn primary" id="ovClose">Schließen</button>
+      </div>
+    </div>
+    <div id="ovrep"></div>
+  </div>
+</div>
+
+<footer id="foot">
+  <button class="btn" id="prev">‹ Zurück</button>
+  <label class="stat">Nr. <input type="number" id="jump" min="1"></label>
+  <button class="btn" id="show">Kontext zeigen</button>
+  <button class="btn primary" id="next">Weiter ›</button>
+  <button class="btn" id="reset" title="Fortschritt löschen">Reset</button>
+  <span class="keys">Tasten: 1–4 / A–D antworten · ← → navigieren</span>
+  <a class="note srcnote" id="srcNote" href="https://github.com/leben-in-deutschland/leben-in-deutschland-app" target="_blank" rel="noopener">Daten: leben-in-deutschland-app ↗</a>
+</footer>
+
+<script>
+// Fragen kommen live aus dem Repo · questions are loaded from
+// https://github.com/leben-in-deutschland/leben-in-deutschland-app (read-only, nothing is changed there)
+const REPO_URL="https://github.com/leben-in-deutschland/leben-in-deutschland-app";
+const RAW="https://raw.githubusercontent.com/leben-in-deutschland/leben-in-deutschland-app/main/src/web";
+// B1-Wortschatz (eigene Wortliste dieser Seite, wird auf die Repo-Fragen angewendet)
+const GLOSS = {"E":[["des Weltkriegs","of the world war"],["die Wahl","election"],["der Bundeskanzler","Federal Chancellor"],["die Mauer","wall"],["der Krieg","war"],["der Nationalsozialismus","National Socialism (Nazism)"],["das Recht","right; law"],["der Schutz","protection"],["die Menschenwürde","human dignity"],["das Verbot","ban, prohibition"],["die Parteien","political parties"],["die Pressefreiheit","freedom of the press"],["die Nationalsozialisten","National Socialists (Nazis)"],["verboten","forbidden"],["die Grundrechte","fundamental rights"],["die Presse","press"],["die Planwirtschaft","planned economy"],["die Zentralwirtschaft","centrally planned economy"],["die Marktwirtschaft","market economy"],["der Weltkrieg","world war"],["der Staat","state"],["die Bundesrepublik","Federal Republic"],["demokratisch","democratic"],["das Amt","office, authority"],["die Bevölkerung","population"],["der Rückzug","withdrawal"],["besetzt","occupied"],["das Gebiet","territory, area"],["die Kapitulation","surrender"],["die Entscheidung","decision"],["der Schulabschluss","school qualification"],["das Abitur","school-leaving exam (university entrance)"],["der Reichskanzler","Reich Chancellor"],["die Republik","republic"],["entscheiden","to decide"],["die Macht","power"],["die Diktatur","dictatorship"],["die Monarchie","monarchy"],["die Demokratie","democracy"],["die Staatsform","form of government"],["angestellt","employed"],["das Kindergeld","child benefit"],["das Wohngeld","housing benefit"],["die Sozialhilfe","social assistance"],["die Sozialversicherung","social insurance"],["die Beiträge","contributions"],["die Flagge","flag"],["die Europäische Union","European Union"],["die Bildung","education"],["wählen","to vote, elect"],["die Synagogen","synagogues"],["jüdisch","Jewish"],["der Reichstag","Reichstag (parliament building)"],["der Anhänger","supporter"],["die Juden","Jews"],["verhaftet","arrested"],["gesetzlich","statutory, legal"],["das Attentat","assassination attempt"],["die Wehrmacht","Nazi-era armed forces"],["die Opposition","opposition"],["die Sozialversicherungen","social insurances"],["der Arbeitgeber","employer"],["die Staatsangehörigen","nationals, citizens"],["der Arbeitnehmer","employee"],["das Nachbarland","neighbouring country"],["die Religionsfreiheit","freedom of religion"],["die Meinungsfreiheit","freedom of opinion/speech"],["der Rassismus","racism"],["die Verfolgung","persecution"],["die Wahlen","elections"],["die Pressezensur","press censorship"],["die Verhaftungen","arrests"],["die Zensur","censorship"],["das Gericht","court"],["volljährig","of age (adult)"],["die Pflicht","duty, obligation"],["das Wahlrecht","right to vote"],["das Gesetz","law"],["die Pflegeversicherung","long-term care insurance"],["die Rentenversicherung","pension insurance"],["die Arbeitslosenversicherung","unemployment insurance"],["die Bürgerin","citizen (f)"],["der Bürger","citizen"],["die Versicherung","insurance"],["geteilt","divided"],["die Grenze","border"],["die Demonstration","demonstration, protest"],["das Volk","people, nation"],["die Montagsdemonstrationen","Monday demonstrations"],["die Regierung","government"],["die Alliierten","the Allies"],["die Besatzungsmächte","occupying powers"],["die Besatzungsmacht","occupying power"],["die Gewerkschaften","trade unions"],["die Interessenverbände","interest groups"],["der Rentner","pensioner"],["der/die Jugendliche","young person"],["vertreten","to represent"],["gegründet","founded"],["die Besatzungszone","occupation zone"],["die Verfassung","constitution"],["die Erziehung","upbringing"],["die Aufgabe","task, duty"],["das Grundgesetz","Basic Law (constitution)"],["die Teilung","division"],["das Parlament","parliament"],["gewählt","elected"],["der Bundesadler","federal eagle"],["das Bundesverdienstkreuz","Federal Cross of Merit"],["der Bundespräsident","Federal President"],["verantwortlich","responsible"],["die Luftbrücke","airlift"],["die Versorgung","supply, provision"],["die Bundestagswahl","federal election"],["der Kniefall","genuflection"],["der Warschauer Pakt","Warsaw Pact"],["die Vergebung","forgiveness"],["der Aufstand","uprising"],["die Integration","integration"],["der Einwanderer","immigrant"],["der Auswanderer","emigrant"],["die Gemeinde","municipality; community"],["bestraft","punished"],["die Gewalt","power; violence"],["das Wirtschaftswunder","economic miracle"],["die Wirtschaft","economy"],["die Entlassung","dismissal"],["schwanger","pregnant"],["die Stolpersteine","\"stumbling stones\" memorials"],["das Opfer","victim"],["der Eiserne Vorhang","Iron Curtain"],["die Abschottung","isolation, sealing off"],["der Feiertag","public holiday"],["die Europawahl","European election"],["der/die Abgeordnete","member of parliament"],["die Mitgliedstaaten","member states"],["die Stimme","vote; voice"],["der Ehepartner","spouse"],["verheiratet","married"],["das Wappen","coat of arms"],["ehrenamtlich","voluntary, unpaid"],["die Bundesregierung","federal government"],["freiwillig","voluntary"],["den Vereinen","clubs, associations"],["die Steuern","taxes"],["des Grundgesetzes","of the Basic Law"],["kritisieren","to criticise"],["die Synagoge","synagogue"],["das Ehepaar","married couple"],["das Trennungsjahr","year of separation"],["die Ehegatten","spouses"],["die Scheidung","divorce"],["die Ehe","marriage"],["die Abkürzung","abbreviation"],["die Bundesländer","federal states"],["das Unternehmen","company"],["der/die Selbstständige","self-employed person"],["die Bundespräsidentin","Federal President (f)"],["die Einhaltung","compliance"],["die Gesetze","laws"],["das Staatsoberhaupt","head of state"],["regieren","to govern"],["der Kanzler","chancellor"],["der Sitz","seat, headquarters"],["der Religionsunterricht","religious education"],["Erziehungsprobleme (pl)","parenting problems"],["das Ordnungsamt","public order office"],["das Jugendamt","youth welfare office"],["das Gesundheitsamt","public health office"],["das Bundesland","federal state"],["das Arbeitsgericht","labour court"],["die Kündigung","dismissal; notice"],["die Nebenkostenabrechnung","utility cost statement"],["zuständig","responsible, competent"],["der Bundesrat","Federal Council (states' chamber)"],["der Bundestag","federal parliament"],["der Minister","minister"],["die Ministerin","minister (f)"],["der Frieden","peace"],["der Rechtsstaat","state under the rule of law"],["der Einwohner","inhabitant"],["nachholen","to make up, catch up on"],["die Zusammenarbeit","cooperation"],["beitreten (beigetreten)","to join, accede"],["der Bundesstaat","federal state (country)"],["die Verantwortung","responsibility"],["das Amtsgericht","local court"],["das Bundesverfassungsgericht","Federal Constitutional Court"],["die Bundesversammlung","Federal Convention"],["die Verträge","treaties"],["die Wirtschaftsgemeinschaft","economic community"],["der Beitritt","accession, joining"],["den Grundrechten","fundamental rights"],["die Freiheit","freedom"],["die Würde","dignity"],["äußern","to express"],["die Meinung","opinion"],["der Arbeitsplatz","job, workplace"],["das Mitglied","member"],["die Partei","political party"],["die Ausbildung","vocational training"],["die Diskriminierung","discrimination"],["wahlberechtigte","eligible to vote"],["der Kandidat","candidate"],["die Stimmabgabe","casting of votes"],["das Angebot","supply, offer"],["die Nachfrage","demand"],["das Ausland","abroad"],["der Bürgermeister","mayor"],["die Tätigkeit","activity, job"],["die Verwaltung","administration"],["der Kindergarten","kindergarten"],["die Bundeskanzlerin","Federal Chancellor (f)"],["die Elternzeit","parental leave"],["der Mutterschutz","maternity protection"],["die Regierungspartei","governing party"],["die Hürde","hurdle, threshold"],["die Fraktion","parliamentary group"],["die Bundesagentur für Arbeit","Federal Employment Agency"],["die Lehrstellensuche","apprenticeship search"],["die Steuererklärung","tax return"],["die Krankenversicherung","health insurance"],["der Beruf","profession"],["die Einheit","unity"],["die Wiedervereinigung","reunification"],["der Adler","eagle"],["die Genehmigung","permit"],["das Einwohnermeldeamt","residents' registration office"],["die Polizei","police"],["die Gaststättenerlaubnis","restaurant licence"],["die Behörde","public authority"],["der Regierungschef","head of government"],["die Regierungschefin","head of government (f)"],["die Anwesenheitspflicht","compulsory attendance"],["der Anspruch","entitlement, claim"],["der Glaube","faith, belief"],["das Ehrenamt","voluntary post"],["der Staatsbürger","citizen"],["die Wahlhelferin","election volunteer (f)"],["der Wahlhelfer","election volunteer"],["der Widerspruch","objection"],["das Abkommen","agreement"],["strafmündig","criminally responsible"],["die Strafe","punishment, penalty"],["die Straftat","criminal offence"],["die Weiterbildung","further education"],["die Wende","the turning point (1989)"],["der Gastarbeiter","guest worker"],["das Ministerium","ministry"],["die Koalition","coalition"],["die Mehrheit","majority"],["anzeigen","to report (to police)"],["die Religionsgemeinschaften","religious communities"],["das Gehalt","salary"],["die Rente","pension"],["die Umsatzsteuer","VAT, sales tax"],["die Lohnsteuer","income tax on wages"],["die Gesetzgebung","legislation"],["das Grundrecht","fundamental right"],["der Ausländer","foreigner"],["das Asyl","asylum"],["der Führerschein","driving licence"],["die Prüfung","exam"],["die Muttersprache","native language"],["der Betriebsrat","works council"],["die Rechtsprechung","jurisdiction, judiciary"],["das Finanzamt","tax office"],["die Gemeinden","municipalities; communities"],["der Kindergartenplatz","kindergarten place"],["die Kündigungsfrist","notice period"],["die Volkshochschule","adult education centre"],["die Folter","torture"],["die Geldstrafe","fine"],["die Todesstrafe","death penalty"],["die Kirchensteuer","church tax"],["das Einkommen","income"],["der Senator","senator (Berlin state minister)"],["die Senatorin","senator (f)"],["der Ministerpräsident","minister-president (state premier)"],["die Ministerpräsidentin","minister-president (f)"],["der Stadtstaat","city state"],["die Kündigungsschutzklage","unfair dismissal claim"],["die Bürgermeisterin","mayor (f)"],["der Grundsatz","principle"],["die Toleranz","tolerance"],["die Stasi","East German secret police"],["die Staatssicherheit","state security"],["der Prozess","trial"],["angeklagt","charged, accused"],["abschaffen","to abolish"],["der Außenminister","foreign minister"],["die Ehescheidung","divorce"],["die Einwilligung","consent"],["der Anwalt","lawyer"],["die Anwältin","lawyer (f)"],["die Bürgerinitiative","citizens' action group"],["die Schöffin","lay judge (f)"],["der Schöffe","lay judge"],["der Staatsanwalt","public prosecutor"],["die Rechtsanwältin","lawyer (f)"],["der Rechtsanwalt","lawyer"],["die Richterin","judge (f)"],["der Richter","judge"],["die Zweitstimmen","second votes (party)"],["die Sitze","seats"],["die Erststimme","first vote (candidate)"],["die Zweitstimme","second vote (party)"],["das Urteil","verdict, judgement"],["der/die Angeklagte","the accused"],["die Bestechung","bribery"],["die Exekutive","executive branch"],["die Judikative","judiciary"],["die Legislative","legislature"],["die Staatsgewalt","state authority"],["anmelden","to register"],["der Verein","club, association"],["die Vereine","clubs, associations"],["demonstrieren","to demonstrate"],["beschließen","to decide, pass (a law)"],["die Verabschiedung","adoption (of a law)"],["die Bundeswehr","German armed forces"],["der Holocaust","the Holocaust"],["leugnen","to deny"],["die Freiheitsstrafe","prison sentence"],["umziehen","to move house"],["das Standesamt","registry office"],["der Gemeinderat","municipal council"],["der Wahlkampf","election campaign"],["die Kritik","criticism"],["das Gewissen","conscience"],["die Zwangsarbeit","forced labour"],["die Nachtruhe","night-time quiet hours"],["die Diskussion","discussion"],["die Stimmen","votes"],["das Wahllokal","polling station"],["sich beschweren","to complain"],["die Schulpolitik","education policy"],["die Versammlungsfreiheit","freedom of assembly"],["die Hausordnung","house rules"],["das Militärbündnis","military alliance"],["der Einspruch","objection, appeal"],["der Bescheid","official notice"],["das Bundeskanzleramt","Federal Chancellery"],["der Geheimdienst","secret service"],["die Gedenkstätte","memorial site"],["die Freizügigkeit","freedom of movement"],["die Staatsangehörigkeit","citizenship"],["verfassungswidrig","unconstitutional"],["der Gedenktag","day of remembrance"],["ernennen","to appoint"],["die Gleichbehandlung","equal treatment"],["benachteiligt","disadvantaged"],["die Behinderung","disability"],["die Vereinten Nationen","the United Nations"],["reklamieren","to make a complaint (about goods)"],["die Garantie","warranty"],["absichtlich","deliberately"],["die Schweigepflicht","duty of confidentiality"],["das Briefgeheimnis","privacy of correspondence"],["das Verbrechen","crime"],["sich bewerben","to apply (for a job)"],["die Erfahrungen","experience"],["die Gehaltsvorstellungen","salary expectations"],["geheim","secret"],["gleichberechtigt","having equal rights"],["die Landtagswahl","state election"],["die Kommunalwahl","local election"],["der Landtag","state parliament"],["der Rollstuhl","wheelchair"],["die Erfahrung","experience"],["die Hautfarbe","skin colour"],["das Bundeskabinett","federal cabinet"],["die Kommunalwahlen","local elections"],["die Nationalhymne","national anthem"],["der Brauch","custom, tradition"],["die Ostverträge","Eastern Treaties"],["antisemitisch","antisemitic"],["der Antisemitismus","antisemitism"],["die Ernennungsurkunde","certificate of appointment"],["die Staatsgäste","state guests"],["der Amtssitz","official residence"],["das Wahlsystem","electoral system"],["die Volkssouveränität","popular sovereignty"],["dem Volke","the people"],["der Mindestanteil","minimum share"],["die Abstimmung","vote, ballot"],["die Benachrichtigung","notification"],["der Stimmzettel","ballot paper"],["die Briefwahl","postal vote"],["die Passkontrolle","passport control"],["die Schulpflicht","compulsory schooling"],["das Elterngeld","parental allowance"],["der Antrag","application"],["die Erwerbstätigen","working population"],["beschäftigt","employed"],["die Lebensform","way of life, household form"],["alleinerziehend","single (parent)"],["geschieden","divorced"],["die Erziehungsberechtigten","legal guardians"],["das Landesparlament","state parliament"],["die Legislaturperiode","legislative term"],["der Landkreis","district (rural)"],["der Kreis","district"],["der Bezirk","district"],["die Bezirksverordnetenversammlung","district assembly (Berlin)"],["die Landesflagge","state flag"],["die Landeszentrale","state agency"],["die Verbraucherzentrale","consumer advice centre"],["die Landeshauptstadt","state capital"],["der Finanzminister","finance minister"],["der Innenminister","interior minister"],["der Justizminister","justice minister"],["der Senat","senate (Berlin government)"],["die Außenbeziehungen","foreign relations"],["der Freistaat","free state"],["der Stadtrat","city council"]],"F":{"Weltkriegs":0,"Wahl":1,"Bundeskanzler":2,"Mauerbaus":3,"Krieg":4,"Nationalsozialismus":5,"Recht":6,"Schutz":7,"Menschenwürde":8,"Verbot":9,"Parteien":10,"Pressefreiheit":11,"Nationalsozialisten":12,"verboten":13,"Grundrechte":14,"Presse":15,"Planwirtschaft":16,"Zentralwirtschaft":17,"Marktwirtschaft":18,"Weltkrieg":19,"Staat":20,"Bundesrepublik":21,"demokratischen":22,"Amt":23,"Bundeskanzlers":2,"Bevölkerung":24,"Rückzug":25,"besetzten":26,"Gebieten":27,"Kapitulation":28,"Entscheidungen":29,"Schulabschluss":30,"Abitur":31,"Reichskanzler":32,"Republik":33,"entscheidend":34,"Macht":35,"Diktatur":36,"Monarchie":37,"Demokratie":38,"Staatsform":39,"Demokratische":22,"Staatsformen":39,"angestellt":40,"Kindergeld":41,"Wohngeld":42,"Sozialhilfe":43,"Sozialversicherung":44,"Beiträge":45,"Kriege":4,"Staaten":20,"Flagge":46,"Europäischen":47,"Bildung":48,"Europäische":47,"Wählen":49,"Synagogen":50,"jüdische":51,"Reichstag":52,"Jüdische":51,"Anhänger":53,"Juden":54,"verhaftet":55,"gesetzlichen":56,"Attentat":57,"Wehrmacht":58,"Opposition":59,"Sozialversicherungen":60,"Arbeitgeber":61,"Staatsangehörigen":62,"Arbeitnehmer":63,"Nachbarland":64,"wählen":49,"Religionsfreiheit":65,"Meinungsfreiheit":66,"Rassismus":67,"Verfolgung":68,"Wahlen":69,"Pressezensur":70,"Verhaftungen":71,"Zensur":72,"Gericht":73,"volljährig":74,"Volljährigkeit":74,"Rechte":6,"Pflichten":75,"Wahlrecht":76,"Gesetz":77,"Pflegeversicherung":78,"gesetzliche":56,"Rentenversicherung":79,"Arbeitslosenversicherung":80,"Bürgerinnen":81,"Bürger":82,"Versicherungen":83,"Mauer":3,"geteilt":84,"geteilte":84,"Grenze":85,"Demonstrationen":86,"Volk":87,"Montagsdemonstrationen":88,"Regierung":89,"Alliierte":90,"Besatzungsmächte":91,"Besatzungsmacht":92,"Gewerkschaften":93,"Interessenverbände":94,"Rentner":95,"Jugendlichen":96,"vertreten":97,"gegründet":98,"besetzt":26,"Besatzungszonen":99,"Verfassung":100,"Erziehung":101,"Aufgabe":102,"Staates":20,"Grundgesetz":103,"Pflicht":75,"Besatzungszone":99,"Alliierten":90,"Demokratischen":22,"Teilung":104,"Parlament":105,"gewählt":106,"Gebiet":27,"Bundesadler":107,"Bundesverdienstkreuz":108,"Bundespräsident":109,"verantwortlich":110,"Luftbrücke":111,"Versorgung":112,"Bundestagswahlen":113,"entscheidenden":34,"Kniefall":114,"jüdischen":51,"Warschauer":115,"Vergebung":116,"Aufstand":117,"Integration":118,"Einwanderer":119,"Auswanderer":120,"Gemeinde":121,"bestraft":122,"Gewalt":123,"gesetzlich":56,"Wirtschaftswunder":124,"Wirtschaft":125,"Entlassung":126,"Schwangere":127,"Stolpersteine":128,"Opfer":129,"Eiserner":130,"Abschottung":131,"Feiertag":132,"Europawahl":133,"Abgeordneten":134,"Parlaments":105,"Mitgliedstaaten":135,"Stimme":136,"Ehepartner":137,"verheiratet":138,"Wappen":139,"ehrenamtlich":140,"Bundesregierung":141,"freiwillig":142,"Vereinen":143,"Ehrenamtlich":140,"Steuern":144,"Grundgesetzes":145,"kritisieren":146,"Monarchien":37,"Republiken":33,"Diktaturen":36,"Synagoge":147,"Judentum":54,"Ehepaare":148,"Trennungsjahr":149,"Ehegatten":150,"Scheidung":151,"Ehe":152,"Abkürzung":153,"Bundesländer":154,"Bundesländern":154,"Regierungen":89,"Unternehmen":155,"Selbstständige":156,"Arbeitgebern":61,"Bundespräsidentin":157,"Einhaltung":158,"Gesetze":159,"Staatsoberhaupt":160,"Regieren":161,"Kanzler":162,"Sitz":163,"entscheiden":34,"Religionsunterricht":164,"Krieges":4,"Erziehungsproblemen":165,"Ordnungsamt":166,"Jugendamt":167,"Gesundheitsamt":168,"Bundesland":169,"Arbeitsgericht":170,"Kündigung":171,"Nebenkostenabrechnung":172,"zuständig":173,"Gerichte":73,"Bundesrat":174,"Bundestages":175,"Minister":176,"Ministerinnen":177,"Aufgaben":102,"Bundestag":175,"Weltkriege":19,"Frieden":178,"Feiertage":132,"Rechtsstaat":179,"Einwohner":180,"nachholen":181,"Zusammenarbeit":182,"beigetreten":183,"Bundesstaat":184,"demokratischer":22,"Verantwortung":185,"Amtsgericht":186,"Bundespräsidenten":109,"Bundesverfassungsgericht":187,"Bundesversammlung":188,"Verträge":189,"Wirtschaftsgemeinschaft":190,"Beitritt":191,"Grundrechten":192,"Freiheit":193,"Würde":194,"demokratisches":22,"Bürgern":82,"äußern":195,"Meinungen":196,"Arbeitsplatz":197,"Mitglied":198,"Partei":199,"Ausbildung":200,"Diskriminierung":201,"wahlberechtigten":202,"Kandidaten":203,"Kandidatin":203,"Stimmabgabe":204,"Angebot":205,"Nachfrage":206,"Ausland":207,"Gesetzen":159,"Bürgermeister":208,"Tätigkeiten":209,"Verwaltung":210,"Kindergarten":211,"Bundeskanzlerin":212,"schwanger":127,"Elternzeit":213,"Mutterschutz":214,"Verträgen":189,"Regierungspartei":215,"Regierungsparteien":215,"regierenden":161,"Hürde":216,"Fraktion":217,"Bundesagentur":218,"Lehrstellensuche":219,"Steuererklärung":220,"Krankenversicherung":221,"Berufe":222,"Ausbildungen":200,"Einheit":223,"Wiedervereinigung":224,"Wappentier":139,"Adler":225,"Ehepaar":148,"Genehmigung":226,"Einwohnermeldeamts":227,"Polizei":228,"Gaststättenerlaubnis":229,"zuständigen":173,"Behörde":230,"Regierungschefs":231,"Regierungschefinnen":232,"Anwesenheitspflicht":233,"Anspruch":234,"Glaubens":235,"wahlberechtigte":202,"Ehrenamt":236,"Staatsbürger":237,"Wahlhelferin":238,"Wahlhelfer":239,"Widerspruch":240,"Abkommen":241,"Jugendliche":96,"strafmündig":242,"Strafe":243,"Straftaten":244,"Meinung":196,"Beruf":222,"Weiterbildung":245,"Wende":246,"demokratisch":22,"Gastarbeiter":247,"Ministerium":248,"Koalition":249,"Mehrheit":250,"anzeigen":251,"Entscheidung":29,"volljährigen":74,"Religionsgemeinschaften":252,"angestellte":40,"Gehalt":253,"Renten":254,"Umsatzsteuer":255,"Lohnsteuer":256,"Gesetzgebung":257,"Grundrecht":258,"Ausländer":259,"Asyl":260,"Führerschein":261,"Prüfung":262,"Muttersprache":263,"Arbeitnehmern":63,"Arbeitgeberin":61,"Betriebsrat":264,"Kündigungen":171,"Rechtsprechung":265,"Gewalten":123,"Finanzamt":266,"Gemeinden":267,"Behörden":230,"Kindergartenplatz":268,"Bundesrats":174,"Kündigungsfrist":269,"Gesetzlich":56,"Volkshochschule":270,"Angebote":205,"Folter":271,"Geldstrafe":272,"Todesstrafe":273,"Strafen":243,"Kirchensteuer":274,"Einkommen":275,"Mitglieder":198,"Senator":276,"Senatorin":277,"Ministerin":177,"Ministerpräsident":278,"Ministerpräsidentin":279,"Regierungschef":231,"Stadtstaaten":280,"Kündigungsschutzklage":281,"Bürgermeisterin":282,"gewählte":106,"Grundsatz":283,"Toleranz":284,"Abkürzungen":153,"Einwohnermeldeamt":227,"Stasi":285,"regierende":161,"Staatssicherheit":286,"Prozess":287,"Straftat":244,"angeklagt":288,"abschaffen":289,"Außenminister":290,"Außenministerin":290,"Ehescheidung":291,"Einwilligung":292,"Anwalts":293,"Anwältin":294,"Bürgerinitiative":295,"Schöffin":296,"Schöffe":297,"Staatsanwalt":298,"Rechtsanwältin":299,"Rechtsanwalt":300,"Richterin":301,"Richter":302,"Zweitstimmen":303,"Bundestagswahl":113,"Sitze":304,"Erststimmen":305,"Zweitstimme":306,"Richters":302,"Urteile":307,"Gerichten":73,"Angeklagten":308,"Angeklagte":308,"Richtern":302,"Richterinnen":301,"ehrenamtliche":140,"Schöffen":297,"Bestechung":309,"Exekutive":310,"Judikative":311,"Legislative":312,"Staatsgewalten":313,"Gesetzbuch":77,"Tätigkeit":209,"Demonstration":86,"anmelden":314,"Verein":315,"Vereine":316,"demonstrieren":317,"Staatsgewalt":313,"Europawahlen":133,"beschließt":318,"Verabschiedung":319,"regieren":161,"Bundeswehr":320,"verbotene":13,"Holocaust":321,"leugnet":322,"Freiheitsstrafe":323,"umziehen":324,"Standesamt":325,"Gemeinderats":326,"ehrenamtlicher":140,"Urteilen":307,"Wahlkampf":327,"Kritik":328,"Abgeordnete":134,"Gewissen":329,"Staate":20,"Zwangsarbeit":330,"Grenzen":85,"Bürgerin":81,"Nachtruhe":331,"Diskussionen":332,"Wahlhelferinnen":238,"Wahlhelfern":239,"Stimmen":333,"Wahllokal":334,"beschweren":335,"Schulpolitik":336,"Versammlungsfreiheit":337,"Wahllokals":334,"Hausordnung":338,"Ordnungsamtes":166,"Gesetzgebungs":257,"Militärbündnis":339,"Einspruch":340,"Bescheid":341,"Bundeskanzleramt":342,"Geheimdienst":343,"Weltkrieges":19,"Gedenkstätte":344,"Geheimdienste":343,"Freizügigkeit":345,"Staatsangehörigkeit":346,"Abgeordneter":134,"Bundeslandes":169,"Bundestags":175,"verfassungswidrig":347,"Prozesse":287,"Parteitag":199,"Gedenktag":348,"ernennt":349,"Bundesverfassungsgerichtes":187,"Gleichbehandlung":350,"benachteiligt":351,"Behinderung":352,"benachteiligten":351,"Vereinten":353,"reklamieren":354,"Garantie":355,"absichtlich":356,"Schweigepflicht":357,"Briefgeheimnis":358,"Verbrechen":359,"bewirbt":360,"Erfahrungen":361,"Gehaltsvorstellungen":362,"geheim":363,"gleichberechtigt":364,"Landtagswahl":365,"Kommunalwahl":366,"Landtag":367,"Rollstuhl":368,"Erfahrung":369,"Rollstuhls":368,"Prozesses":287,"Kirchensteuern":274,"Ministerien":176,"Hautfarbe":370,"demokratische":22,"entscheidendes":34,"Bundeskabinett":371,"Landtags":367,"Kommunalwahlen":372,"Nationalhymne":373,"Brauch":374,"Feiertagen":132,"Versicherung":83,"Ostverträge":375,"antisemitisches":376,"jüdisches":51,"Antisemitismus":377,"antisemitischen":376,"Ernennungsurkunde":378,"Kanzlerin":162,"Staatsgäste":379,"Amtssitz":380,"Rechtsstaates":179,"Freiheiten":193,"Wahlsystem":381,"Mehrheits":250,"Geheimheit":363,"Volkssouveränität":382,"Volke":383,"Mindestanteil":384,"Fraktionen":217,"Abstimmungen":385,"Hürden":216,"Wahlrechts":76,"Diskussion":332,"Parlamente":105,"Benachrichtigung":386,"Wahlberechtigte":202,"Ministerpräsidenten":278,"Ministerpräsidentinnen":279,"Stimmzettel":387,"Bundeskabinetts":371,"Landtagswahlen":365,"Briefwahl":388,"Wahltag":1,"Ehemann":152,"Militärbündnisse":339,"Abkommens":241,"Passkontrolle":389,"Passkontrollen":389,"Schulpflicht":390,"Elterngeld":391,"Antrag":392,"Einkommens":275,"Erwerbstätigen":393,"beschäftigt":394,"Lebensform":395,"alleinerziehender":396,"geschieden":397,"Erziehungsberechtigten":398,"Landesparlament":399,"Landtage":367,"Legislaturperiode":400,"Landkreis":401,"Kreis":402,"Landkreisen":401,"Landkreise":401,"Bezirk":403,"Bezirke":403,"Bezirksverordnetenversammlung":404,"Bezirks":403,"Landesflagge":405,"Landesflaggen":405,"Landeszentrale":406,"Verbraucherzentrale":407,"Landeshauptstadt":408,"Regierungschefin":232,"Finanzminister":409,"Finanzministerin":409,"Innenminister":410,"Innenministerin":410,"Justizminister":411,"Justizministerin":411,"Gebiete":27,"Stadtstaat":280,"Stadtstaates":280,"Regierender":161,"Regierende":161,"Senats":412,"Senat":412,"Außenbeziehungen":413,"Regierenden":161,"Senatorinnen":277,"Senatoren":276,"Freistaat":414,"Freistaats":414,"Gemeinderat":326,"Stadtrat":415,"Kreistag":402,"Flaggen":46,"Einheiten":223,"Parlamenten":105,"Landtagen":367,"Wahlart":1,"Zuständigkeit":173,"Kreise":402,"Gemeinderäte":121,"Kreisen":402,"Wappens":139,"Ministern":176,"Freistaates":414,"Prüfungen":262,"Verwaltungen":210}};
+const LANGS={
+  en:{name:"English",dir:"ltr",ok:"Correct!",bad:"Wrong – the answer is",ctx:"Context",img:"Answers refer to the numbered pictures on the left."},
+  tr:{name:"Türkçe",dir:"ltr",ok:"Doğru!",bad:"Yanlış – doğru cevap",ctx:"Bağlam",img:"Cevaplar soldaki numaralı resimlere aittir."},
+  ru:{name:"Русский",dir:"ltr",ok:"Верно!",bad:"Неверно – правильный ответ",ctx:"Контекст",img:"Ответы относятся к пронумерованным картинкам слева."},
+  uk:{name:"Українська",dir:"ltr",ok:"Правильно!",bad:"Неправильно – правильна відповідь",ctx:"Контекст",img:"Відповіді стосуються пронумерованих зображень ліворуч."},
+  fr:{name:"Français",dir:"ltr",ok:"Correct !",bad:"Faux – la bonne réponse est",ctx:"Contexte",img:"Les réponses renvoient aux images numérotées à gauche."},
+  ar:{name:"العربية",dir:"rtl",ok:"صحيح!",bad:"خطأ – الإجابة الصحيحة هي",ctx:"السياق",img:"تشير الإجابات إلى الصور المرقمة على اليسار."},
+  hi:{name:"हिन्दी",dir:"ltr",ok:"सही!",bad:"गलत – सही उत्तर है",ctx:"संदर्भ",img:"उत्तर बाईं ओर की क्रमांकित तस्वीरों से संबंधित हैं।"}
+};
+let Q=[], LANG="en", offline=false;
+try{ LANG=localStorage.getItem("lid-lang")||"en"; }catch(e){}
+if(!LANGS[LANG]) LANG="en";
+const T=()=>LANGS[LANG];
+
+async function getJSON(path){
+  const ck="lid-cache:"+path;
+  try{
+    const r=await fetch(RAW+path,{cache:"no-cache"});
+    if(!r.ok) throw new Error("HTTP "+r.status);
+    const txt=await r.text(), data=JSON.parse(txt);
+    try{
+      const m=path.match(/\/(translations|context)\/(\w+)\.json$/);
+      if(m && m[2]!=="de") Object.keys(localStorage).forEach(k=>{ const o=k.match(/^lid-cache:.*\/(translations|context)\/(\w+)\.json$/); if(o && o[2]!=="de" && o[2]!==m[2]) localStorage.removeItem(k); });
+      localStorage.setItem(ck,txt);
+    }catch(e){}
+    return data;
+  }catch(err){
+    let c=null; try{ c=localStorage.getItem(ck); }catch(e){}
+    if(c){ offline=true; return JSON.parse(c); }
+    throw err;
+  }
+}
+function imgURL(im){
+  if(!im||im==="-") return "";
+  const m=String(im).match(/\/questions\/([A-Za-z0-9-]+\.webp)$/);
+  return m ? RAW+"/public/questions/"+m[1] : im;
+}
+function vocabFor(q){
+  const v=[],vm={},seen={};
+  [q.dq,...q.de,q.dc].join(" ").split(/([A-Za-zÄÖÜäöüß]+)/).forEach(p=>{
+    const e=GLOSS.F[p]; if(e===undefined||vm[p]!==undefined) return;
+    if(seen[e]===undefined){ seen[e]=v.length; v.push(GLOSS.E[e]); }
+    vm[p]=seen[e];
+  });
+  q.v=v; q.vm=vm;
+}
+async function loadCore(){
+  const [core,deCtx]=await Promise.all([getJSON("/data/questions-core.json"),getJSON("/public/data/context/de.json")]);
+  Q=core.map(r=>{
+    const m=String(r.num).match(/^([A-Z]{2})-(\d+)$/);
+    const q={id:r.id,num:String(r.num),st:m?m[1]:"ALL",n:m?+m[2]:+r.num,
+      cat:String(r.category||"").replace(/^['"]+|['"]+$/g,"").trim()||"Other",
+      dq:r.question,de:[r.a,r.b,r.c,r.d],s:"abcd".indexOf(String(r.solution).trim().toLowerCase()),
+      img:imgURL(r.image),dc:deCtx[r.num]||"",fx:false,eq:"",en:["","","",""],ec:""};
+    vocabFor(q); return q;
+  }).filter(q=>q.s>=0 && ST[q.st]);
+}
+async function loadLang(l){
+  const [t,x]=await Promise.all([getJSON(`/public/data/translations/${l}.json`),getJSON(`/public/data/context/${l}.json`)]);
+  Q.forEach(q=>{ const r=t[q.num]||{}; q.eq=r.question||""; q.en=[r.a||"",r.b||"",r.c||"",r.d||""]; q.ec=x[q.num]||""; });
+}
+const ST = {ALL:"Allgemein",BB:"Brandenburg",BE:"Berlin",BW:"Baden-Württemberg",BY:"Bayern",HB:"Bremen",HE:"Hessen",HH:"Hamburg",MV:"Mecklenburg-Vorpommern",NI:"Niedersachsen",NW:"Nordrhein-Westfalen",RP:"Rheinland-Pfalz",SH:"Schleswig-Holstein",SL:"Saarland",SN:"Sachsen",ST:"Sachsen-Anhalt",TH:"Thüringen"};
+const L = "ABCD";
+const $ = id => document.getElementById(id);
+const KEY = "lid-progress-v2";   // keyed by question id from the repo
+let ans = {}, miss = {};
+function loadProgress(){
+  let a={},m={};
+  try{ a=JSON.parse(localStorage.getItem(KEY)||"{}")||{}; m=JSON.parse(localStorage.getItem(KEY+"-miss")||"{}")||{}; }catch(e){}
+  ans={}; miss={};
+  Q.forEach((q,i)=>{ if(a[q.id]!==undefined) ans[i]=a[q.id]; if(m[q.id]) miss[i]=m[q.id]; });
+}
+const save = () => {
+  const a={},m={};
+  for(const i in ans) a[Q[i].id]=ans[i];
+  for(const i in miss) m[Q[i].id]=miss[i];
+  try { localStorage.setItem(KEY, JSON.stringify(a)); localStorage.setItem(KEY+"-miss", JSON.stringify(m)); } catch(e) {}
+};
+
+// populate selects
+Object.keys(ST).filter(k=>k!=="ALL"&&k!=="BE").forEach(k=>{
+  const o=document.createElement("option"); o.value="ALL+"+k; o.textContent="Allgemein + "+ST[k]; $("fState").appendChild(o);
+});
+function fillCats(){
+  [...new Set(Q.map(q=>q.cat))].sort().forEach(c=>{
+    const o=document.createElement("option"); o.value=c; o.textContent=c; $("fCat").appendChild(o);
+  });
+}
+
+let list=[], cur=0, shuffled=false, ctxForced=false;
+
+function build(keepIdx){
+  const s=$("fState").value, c=$("fCat").value, m=$("fMode").value;
+  const states = s==="*" ? null : s.split("+");
+  list = Q.map((q,i)=>i).filter(i=>{
+    const q=Q[i];
+    if(states && !states.includes(q.st)) return false;
+    if(c!=="*" && q.cat!==c) return false;
+    if(m==="open" && ans[i]!==undefined) return false;
+    if(m==="wrong" && !(ans[i]!==undefined && ans[i]!==q.s)) return false;
+    if(m==="missed" && !miss[i]) return false;
+    return true;
+  });
+  if(shuffled){ for(let i=list.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[list[i],list[j]]=[list[j],list[i]];} }
+  const k = keepIdx!==undefined ? list.indexOf(keepIdx) : -1;
+  cur = k>=0 ? k : 0;
+  $("jump").max = list.length;
+  render();
+}
+
+function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+function mark(text,q){
+  return text.split(/([A-Za-zÄÖÜäöüß]+)/).map(p=>{
+    const k=q.vm[p];
+    return k!==undefined ? `<span class="v" title="${esc(q.v[k][0]+' = '+q.v[k][1])}">${esc(p)}</span>` : esc(p);
+  }).join("");
+}
+function opt(q,i,side){
+  const li=document.createElement("li");
+  const b=document.createElement("button");
+  b.className="opt"; b.type="button"; b.dataset.i=i;
+  b.innerHTML=`<span class="k">${L[i]}</span><span></span>`;
+  if(side==="de") b.lastChild.innerHTML = mark(q.de[i],q); else b.lastChild.textContent = q.en[i];
+  b.addEventListener("click",()=>choose(i));
+  li.appendChild(b); return li;
+}
+
+function render(){
+  const main=$("main");
+  if(!list.length){
+    $("qDe").textContent="Keine Fragen in dieser Auswahl."; $("qEn").textContent="No questions in this selection.";
+    ["oDe","oEn","imgDe","imgEn","metaDe","metaEn"].forEach(id=>$(id).innerHTML="");
+    ["vDe","vEn","cDe","cEn"].forEach(id=>$(id).classList.remove("show")); $("vlist").innerHTML="";
+    $("pos").textContent="0 / 0"; stats(); return;
+  }
+  const idx=list[cur], q=Q[idx];
+  const tag = `${ST[q.st]} · ${q.n} · ${q.cat}`;
+  $("metaDe").textContent=tag; $("metaEn").textContent=q.cat;
+  $("qDe").innerHTML=mark(q.dq,q); $("qEn").textContent=q.eq;
+  $("imgDe").innerHTML = q.img ? `<img class="qimg" src="${q.img}" alt="Bild zur Frage" onerror="this.outerHTML='<a href=&quot;${q.img}&quot; target=&quot;_blank&quot;>Bild öffnen ↗</a> <span class=note>(offline nicht verfügbar)</span>'">` : "";
+  $("imgEn").innerHTML = q.img ? `<span class="note">${esc(T().img)}</span>` : "";
+  const oDe=$("oDe"), oEn=$("oEn"); oDe.innerHTML=""; oEn.innerHTML="";
+  for(let i=0;i<4;i++){ oDe.appendChild(opt(q,i,"de")); oEn.appendChild(opt(q,i,"en")); }
+  $("cDe").querySelector("p").innerHTML=mark(q.dc,q);
+  $("vlist").innerHTML = q.v.length ? q.v.map(([w,e])=>`<li><span class="w">${esc(w)}</span><span class="t">${esc(e)}</span></li>`).join("") : '<li><span class="w">–</span></li>';
+  $("cEn").querySelector("p").textContent=q.ec;
+  ctxForced=false;
+  $("pos").textContent=`${cur+1} / ${list.length}`;
+  $("jump").value=cur+1;
+  paint();
+  stats();
+}
+
+function paint(){
+  const idx=list[cur], q=Q[idx], a=ans[idx], done=a!==undefined;
+  document.querySelectorAll(".opt").forEach(b=>{
+    const i=+b.dataset.i;
+    b.classList.remove("ok","bad","dim");
+    b.disabled=done;
+    if(done){
+      if(i===q.s) b.classList.add("ok");
+      else if(i===a) b.classList.add("bad");
+      else b.classList.add("dim");
+    }
+  });
+  const showCtx = done || ctxForced;
+  ["cDe","cEn"].forEach(id=>$(id).classList.toggle("show",showCtx));
+  const y = done && a===q.s;
+  $("vDe").className="verdict"+(done?" show "+(y?"y":"n"):"");
+  $("vEn").className="verdict"+(done?" show "+(y?"y":"n"):"");
+  $("vDe").textContent = done ? (y?"✓ Richtig!":`✗ Falsch – richtig ist ${L[q.s]}: ${q.de[q.s]}`) : "";
+  $("vEn").textContent = done ? (y?"✓ "+T().ok:`✗ ${T().bad} ${L[q.s]}: ${q.en[q.s]}`) : "";
+  $("show").textContent = done ? "Erneut versuchen" : (ctxForced ? "Kontext ausblenden" : "Kontext zeigen");
+}
+
+function choose(i){
+  if(!list.length) return;
+  const idx=list[cur]; if(ans[idx]!==undefined) return;
+  ans[idx]=i; if(i!==Q[idx].s) miss[idx]=(miss[idx]||0)+1; save(); paint(); stats();
+  if(list.every(j=>ans[j]!==undefined)) setTimeout(showDone,700);
+}
+
+function stats(){
+  const pool=new Set(list);
+  let n=0,ok=0;
+  for(const k in ans){ if(pool.has(+k) || $("fMode").value!=="all"){ } }
+  // stats over current catalog filter (state+category), independent of mode
+  const s=$("fState").value, c=$("fCat").value, states=s==="*"?null:s.split("+");
+  let total=0;
+  Q.forEach((q,i)=>{
+    if(states && !states.includes(q.st)) return;
+    if(c!=="*" && q.cat!==c) return;
+    total++;
+    if(ans[i]!==undefined){ n++; if(ans[i]===q.s) ok++; }
+  });
+  $("okN").textContent=ok; $("failN").textContent=Object.keys(miss).length; $("ansN").textContent=n;
+  $("prog").style.width = total ? (n/total*100)+"%" : "0";
+}
+
+function go(d){ if(!list.length) return; cur=(cur+d+list.length)%list.length; render(); window.scrollTo({top:0}); }
+
+$("prev").onclick=()=>go(-1);
+$("next").onclick=()=>{
+  // in filtered modes, rebuild so answered items drop out
+  if($("fMode").value!=="all"){ const nextIdx=list[(cur+1)%list.length]; build(nextIdx); } else go(1);
+};
+$("show").onclick=()=>{
+  const idx=list[cur];
+  if(ans[idx]!==undefined){ delete ans[idx]; save(); paint(); stats(); }
+  else { ctxForced=!ctxForced; paint(); }
+};
+$("jump").onchange=e=>{ const v=Math.min(Math.max(1,+e.target.value||1),list.length); cur=v-1; render(); };
+$("reset").onclick=()=>{ if(confirm("Gesamten Fortschritt (inkl. Fehlerliste) löschen?")){ ans={}; miss={}; save(); build(); } };
+
+function setTab(f){
+  $("tQuiz").classList.toggle("on",!f); $("tFail").classList.toggle("on",f);
+  $("tQuiz").setAttribute("aria-selected",!f); $("tFail").setAttribute("aria-selected",f);
+  $("main").hidden=f; $("foot").hidden=f; $("fails").hidden=!f;
+  document.querySelector(".bar").hidden=f;
+  ["fState","fCat","fMode","shuf"].forEach(id=>$(id).disabled=f);
+  if(f) renderFails(); else render();
+  window.scrollTo&&window.scrollTo({top:0});
+}
+function renderFails(){
+  renderReport($("frep"));
+  const ids=Object.keys(miss).map(Number);
+  if($("fSort").value==="cnt") ids.sort((a,b)=>miss[b]-miss[a]||a-b); else ids.sort((a,b)=>a-b);
+  if(!ids.length){ $("flist").innerHTML='<div class="none">Noch keine Fehler – weiter so! · No wrong answers yet.</div>'; return; }
+  $("flist").innerHTML=ids.map(i=>{
+    const q=Q[i], a=ans[i], fixed=a===q.s;
+    const yours = (a!==undefined && a!==q.s);
+    const img = q.img ? `<img class="fimg" src="${q.img}" alt="" loading="lazy" onerror="this.remove()">` : "";
+    return `<article class="fcard${fixed?" fixed":""}">
+      <div class="fhead"><span><b>${ST[q.st]} · ${q.n}</b> · ${esc(q.cat)} · ${miss[i]}× falsch${fixed?" · jetzt richtig ✓":""}</span>
+        <span class="fact"><button class="btn" data-go="${i}">Üben</button><button class="btn" data-rm="${i}">Entfernen</button></span></div>
+      <div class="fbody">
+        <div class="fcol de" lang="de"><p class="fq">${mark(q.dq,q)}</p>${img}
+          ${yours?`<div class="fa n">✗ ${L[a]}: ${esc(q.de[a])}</div>`:""}
+          <div class="fa y">✓ ${L[q.s]}: ${esc(q.de[q.s])}</div>
+          <p class="fctx">${mark(q.dc,q)}</p></div>
+        <div class="fcol en" lang="${LANG}" dir="${T().dir}"><p class="fq">${esc(q.eq)}</p>
+          ${yours?`<div class="fa n">✗ ${L[a]}: ${esc(q.en[a])}</div>`:""}
+          <div class="fa y">✓ ${L[q.s]}: ${esc(q.en[q.s])}</div>
+          <p class="fctx">${esc(q.ec)}</p></div>
+      </div>
+      ${q.v.length?`<div class="fv">${q.v.map(([w,e])=>`<span class="chip">${esc(w)} · <i>${esc(e)}</i></span>`).join("")}</div>`:""}
+    </article>`;
+  }).join("");
+}
+$("flist").addEventListener("click",e=>{
+  const g=e.target.closest("[data-go]"), r=e.target.closest("[data-rm]");
+  if(g){ const i=+g.dataset.go; delete ans[i]; save(); $("fState").value="*"; $("fCat").value="*"; $("fMode").value="all"; setTab(false); build(i); }
+  if(r){ delete miss[+r.dataset.rm]; save(); renderFails(); stats(); }
+});
+$("practiceFails").onclick=()=>{ Object.keys(miss).forEach(i=>delete ans[i]); save(); $("fState").value="*"; $("fCat").value="*"; $("fMode").value="missed"; setTab(false); build(); };
+$("clearFails").onclick=()=>{ if(confirm("Fehlerliste leeren?")){ miss={}; save(); renderFails(); stats(); } };
+$("fSort").onchange=renderFails;
+$("tQuiz").onclick=()=>setTab(false);
+$("tFail").onclick=()=>setTab(true);
+$("shuf").onclick=()=>{ shuffled=!shuffled; $("shuf").classList.toggle("on",shuffled); $("shuf").setAttribute("aria-pressed",shuffled); build(); };
+["fState","fCat","fMode"].forEach(id=>$(id).onchange=()=>build());
+
+document.addEventListener("keydown",e=>{
+  if(!Q.length||e.target.tagName==="INPUT"||e.target.tagName==="SELECT"||!$("fails").hidden||!$("ov").hidden) return;
+  const k=e.key.toLowerCase();
+  const m={"1":0,"2":1,"3":2,"4":3,"a":0,"b":1,"c":2,"d":3}[k];
+  if(m!==undefined){ choose(m); e.preventDefault(); }
+  else if(e.key==="ArrowRight"||e.key==="Enter"){ $("next").click(); e.preventDefault(); }
+  else if(e.key==="ArrowLeft"){ go(-1); e.preventDefault(); }
+});
+
+
+// ---------- Statistik-Bericht / statistics report ----------
+let vSrc="miss";
+const pct=(a,b)=>b?Math.round(a/b*100):0;
+function scopeIdx(){
+  const s=$("fState").value, states=s==="*"?null:s.split("+");
+  return Q.map((q,i)=>i).filter(i=>!states||states.includes(Q[i].st));
+}
+function calc(){
+  const idx=scopeIdx(); let ok=0,bad=0,open=0; const cats={};
+  idx.forEach(i=>{
+    const q=Q[i], a=ans[i];
+    const c=cats[q.cat]||(cats[q.cat]={cat:q.cat,t:0,ok:0,bad:0,open:0,miss:0});
+    c.t++; c.miss+=miss[i]||0;
+    if(a===undefined){open++;c.open++;} else if(a===q.s){ok++;c.ok++;} else {bad++;c.bad++;}
+  });
+  const list=Object.values(cats).map(c=>{c.done=c.ok+c.bad; c.rate=c.done?c.bad/c.done:0; return c;});
+  list.sort((a,b)=>b.rate-a.rate||b.miss-a.miss||b.bad-a.bad||a.cat.localeCompare(b.cat));
+  return {idx,ok,bad,open,total:idx.length,cats:list};
+}
+function seg(cls,n,total,label){
+  return n?`<i class="${cls}" style="flex:${n} 1 0" title="${esc(label)}: ${n} (${pct(n,total)} %)"></i>`:"";
+}
+function vocabTop(idx){
+  const m={};
+  idx.forEach(i=>{
+    const w = vSrc==="miss" ? (miss[i]||0) : (ans[i]!==undefined?1:0);
+    if(!w) return;
+    const seen=new Set();
+    Q[i].v.forEach(([de,en])=>{
+      if(seen.has(de)) return; seen.add(de);
+      const e=m[de]||(m[de]={de,en,q:0,n:0}); e.q++; e.n+=w;
+    });
+  });
+  return Object.values(m).sort((a,b)=>b.q-a.q||b.n-a.n||a.de.localeCompare(b.de)).slice(0,30);
+}
+function renderReport(el){
+  const r=calc(), done=r.ok+r.bad, rate=pct(r.ok,done);
+  const scope=$("fState").selectedOptions[0].textContent;
+  // 1 · overview
+  const passTxt = !done ? "" : (rate>=52
+    ? `<p class="pass y">✓ ${rate} % richtig – über der Bestehensgrenze (17 von 33 ≈ 52 %) · above the pass mark</p>`
+    : `<p class="pass n">✗ ${rate} % richtig – unter der Bestehensgrenze (17 von 33 ≈ 52 %) · below the pass mark</p>`);
+  const overview=`<section class="rcard">
+    <h3>Überblick<small>Overview · ${esc(scope)}</small></h3>
+    <div class="kpis">
+      <div class="kpi"><b>${r.ok}</b><span><i class="sw o"></i>Richtig · correct</span></div>
+      <div class="kpi"><b>${r.bad}</b><span><i class="sw x"></i>Falsch · wrong</span></div>
+      <div class="kpi"><b>${r.open}</b><span><i class="sw u"></i>Offen · not answered</span></div>
+      <div class="kpi"><b>${done?rate+" %":"–"}</b><span>Trefferquote · score</span></div>
+    </div>
+    <div class="sbar" role="img" aria-label="${r.ok} richtig, ${r.bad} falsch, ${r.open} offen von ${r.total}">
+      ${seg("o",r.ok,r.total,"Richtig")}${seg("x",r.bad,r.total,"Falsch")}${seg("u",r.open,r.total,"Offen")}
+    </div>
+    <div class="legend"><span>${done} von ${r.total} Fragen beantwortet · answered</span></div>
+    ${passTxt}
+  </section>`;
+  // 2 · categories
+  const rows=r.cats.map(c=>`<div class="crow">
+      <span>${esc(c.cat)}</span>
+      <div class="sbar" role="img" aria-label="${esc(c.cat)}: ${c.ok} richtig, ${c.bad} falsch, ${c.open} offen">
+        ${seg("o",c.ok,c.t,"Richtig")}${seg("x",c.bad,c.t,"Falsch")}${seg("u",c.open,c.t,"Offen")}
+      </div>
+      <span class="r">${c.done?`<b>${pct(c.bad,c.done)} %</b> falsch`:"–"}<br>${c.bad}/${c.done} · ${c.t} Fr.</span>
+    </div>`).join("");
+  const cards=`<section class="rcard">
+    <h3>Fehler nach Kategorie<small>Mistakes by category</small></h3>
+    <p class="rsub">Sortiert nach Fehlerquote der beantworteten Fragen · sorted by error rate</p>
+    ${rows}
+    <div class="legend"><span><i class="sw o"></i>Richtig</span><span><i class="sw x"></i>Falsch</span><span><i class="sw u"></i>Offen</span></div>
+  </section>`;
+  // 3 · recommendations
+  let recs=r.cats.filter(c=>c.bad>0 && (c.rate>=0.2 || c.bad>=3)).slice(0,4);
+  if(!recs.length) recs=r.cats.filter(c=>c.bad>0).slice(0,2);
+  const notStarted=r.cats.filter(c=>c.done===0).map(c=>c.cat);
+  const recHtml=`<section class="rcard">
+    <h3>Empfehlung: wiederholen<small>Recommended to repeat</small></h3>
+    <p class="rsub">Kategorien mit den meisten Fehlern · categories with the most mistakes</p>
+    <div class="recs">${recs.length?recs.map(c=>`<div class="recitem">
+        <div><b>${esc(c.cat)}</b><p>${c.bad} von ${c.done} falsch (${pct(c.bad,c.done)} %)${c.miss>c.bad?` · insgesamt ${c.miss}× falsch`:""}${c.open?` · ${c.open} noch offen`:""}</p></div>
+        <button class="btn primary" data-cat="${esc(c.cat)}">Üben</button></div>`).join("")
+      : `<p class="none" style="padding:1rem">${done?"Keine Schwachstellen – super! · No weak spots.":"Beantworte zuerst ein paar Fragen. · Answer some questions first."}</p>`}</div>
+    ${notStarted.length&&done?`<p class="rsub" style="margin-top:.8rem">Noch nicht begonnen · not started yet: ${notStarted.map(esc).join(", ")}</p>`:""}
+  </section>`;
+  // 4 · vocabulary
+  const vt=vocabTop(r.idx);
+  const vocab=`<section class="rcard">
+    <h3>Wichtiger Wortschatz<small>Key vocabulary</small></h3>
+    <p class="rsub">${vSrc==="miss"?"Wörter, die in deinen falsch beantworteten Fragen am häufigsten vorkommen":"Wörter, die in deinen beantworteten Fragen am häufigsten vorkommen"} · Zahl = in wie vielen Fragen</p>
+    <div class="vtoggle">
+      <button class="btn${vSrc==="miss"?" on":""}" data-vsrc="miss">Aus Fehlern · from mistakes</button>
+      <button class="btn${vSrc==="ans"?" on":""}" data-vsrc="ans">Aus allen beantworteten · all answered</button>
+    </div>
+    ${vt.length?`<ul class="vtop">${vt.map(v=>`<li><span class="w">${esc(v.de)}</span><span class="c" title="in ${v.q} Fragen${vSrc==="miss"?`, ${v.n}× falsch`:""}">${v.q}×</span><span class="t">${esc(v.en)}</span></li>`).join("")}</ul>`
+      :`<p class="none" style="padding:1rem">Noch keine Daten · no data yet.</p>`}
+  </section>`;
+  el.innerHTML=`<div class="rep">${overview}<div class="rgrid">${cards}${recHtml}</div>${vocab}</div>`;
+}
+function practiceCat(cat){
+  const idx=scopeIdx().filter(i=>Q[i].cat===cat);
+  const wrong=idx.filter(i=>miss[i] || (ans[i]!==undefined && ans[i]!==Q[i].s));
+  wrong.forEach(i=>{ delete ans[i]; if(!miss[i]) miss[i]=1; });
+  save(); $("ov").hidden=true;
+  $("fCat").value=cat; $("fMode").value = wrong.length?"missed":"open";
+  setTab(false); build();
+}
+function onRepClick(e){
+  const c=e.target.closest("[data-cat]"), v=e.target.closest("[data-vsrc]");
+  if(c) practiceCat(c.dataset.cat);
+  if(v){ vSrc=v.dataset.vsrc; renderReport(e.currentTarget); }
+}
+$("frep").addEventListener("click",onRepClick);
+$("ovrep").addEventListener("click",onRepClick);
+function showDone(){
+  if(!$("fails").hidden) return;
+  renderReport($("ovrep")); $("ov").hidden=false; $("ovClose").focus();
+}
+$("ovClose").onclick=()=>{ $("ov").hidden=true; };
+$("ovFails").onclick=()=>{ $("ov").hidden=true; setTab(true); };
+$("ov").addEventListener("click",e=>{ if(e.target===$("ov")) $("ov").hidden=true; });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape" && !$("ov").hidden){ $("ov").hidden=true; e.stopImmediatePropagation(); } },true);
+
+
+// ---------- Hell / Dunkel · light / dark ----------
+const THEMES=[["","◐ Auto"],["light","☀ Hell"],["dark","☾ Dunkel"]];
+function applyTheme(t){
+  if(t) document.documentElement.dataset.theme=t; else delete document.documentElement.dataset.theme;
+  const lbl=THEMES.find(x=>x[0]===t)||THEMES[0];
+  $("theme").textContent=lbl[1];
+  $("theme").setAttribute("aria-label","Design: "+lbl[1].slice(2));
+}
+let theme=""; try{ theme=localStorage.getItem("lid-theme")||""; }catch(e){}
+applyTheme(theme);
+$("theme").onclick=()=>{
+  const i=THEMES.findIndex(x=>x[0]===theme);
+  theme=THEMES[(i+1)%THEMES.length][0];
+  try{ theme?localStorage.setItem("lid-theme",theme):localStorage.removeItem("lid-theme"); }catch(e){}
+  applyTheme(theme);
+};
+
+
+// ---------- Laden · loading ----------
+Object.entries(LANGS).forEach(([k,v])=>{ const o=document.createElement("option"); o.value=k; o.textContent=v.name; $("fLang").appendChild(o); });
+$("fLang").value=LANG;
+function applyLang(){
+  const p=$("paneEn"); p.lang=LANG; p.dir=T().dir;
+  $("cEnH").textContent=T().ctx;
+}
+$("fLang").onchange=async()=>{
+  const l=$("fLang").value, prev=LANG; $("fLang").disabled=true;
+  try{ await loadLang(l); LANG=l; try{ localStorage.setItem("lid-lang",l); }catch(e){} }
+  catch(e){ alert("Sprache konnte nicht geladen werden · could not load language ("+(e.message||e)+")"); $("fLang").value=prev; }
+  $("fLang").disabled=false; applyLang();
+  if(!$("fails").hidden) renderFails(); else if(list.length){ const keep=ctxForced; render(); ctxForced=keep; paint(); }
+};
+async function init(){
+  $("qDe").textContent="Fragen werden geladen …"; $("qEn").textContent="Loading questions from GitHub …";
+  try{ await loadCore(); await loadLang(LANG); }
+  catch(e){
+    $("qDe").textContent="Die Fragen konnten nicht geladen werden.";
+    $("qEn").innerHTML=`Could not load the questions from GitHub (${esc(String(e.message||e))}). Bitte Internetverbindung prüfen · check your connection. <button class="btn" onclick="location.reload()">Erneut versuchen</button>`;
+    return;
+  }
+  if(offline) $("srcNote").textContent="Offline – gespeicherte Daten · cached data";
+  loadProgress(); fillCats(); applyLang(); build();
+}
+init();
+</script>
+</body>
+</html>
